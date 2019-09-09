@@ -100,7 +100,6 @@ export default {
   },
   props: {
     el: {
-      type: Object,
       required: true
     },
     type: {
@@ -117,8 +116,8 @@ export default {
     }
   },
   data: () => ({
-    colors: ['blue', 'green', 'red', 'black', 'white'],
-    textColors: ['#4da1ff', '#38E4B7', '#EA4F52', '#000000', '#FFFFFF'],
+    colors: ['blue', 'green', 'red', 'black', 'white', 'grey', 'lgrey'],
+    textColors: ['#4da1ff', '#38E4B7', '#EA4F52', '#000000', '#FFFFFF', "#444444", "#999999"],
     textColor: '',
     oldColorerColor: '',
     colorerColor: '',
@@ -258,7 +257,6 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '~@baianat/base.framework/src/stylus/util/colors'
 
 .styler
   position: absolute
@@ -268,7 +266,7 @@ export default {
   opacity: 0
   margin: 10px 0
   padding: 5px
-  background: $dark
+  background: #323c47
   border-radius: 26px
   display: flex
   flex-direction: column
@@ -282,8 +280,8 @@ export default {
     margin: 0
     padding: 0
   &-input
-    background: $white
-    color: $dark
+    background: #ffffff
+    color: #323c47
     border: 0
     outline: 0
     width: 40px
@@ -299,16 +297,16 @@ export default {
     justify-content: center
     align-items: center
     outline: 0
-    background: $dark
+    background: #323c47
     border: 0
-    fill: $white
-    color: $white
+    fill: ffffff
+    color: ffffff
     width: 42px
     height: 42px
     border-radius: 42px
     margin: 0 5px 0 0
     &:hover
-      background: darken($dark, 20%)
+      background: darken(#323c47, 20%)
     &:first-child
       margin-left: 5px
   &-selector
@@ -333,23 +331,28 @@ export default {
     width: 30px
     height: 30px
     border-radius: 40px
-    border: 4px solid darken($dark, 20%)
+    border: 4px solid darken(#323c47, 20%)
     margin: 0 5px
     outline: none
     &:checked
-      border-color: lighten($dark, 20%)
+      border-color: lighten(#323c47, 20%)
     &:hover
-      border-color: lighten($dark, 20%)
+      border-color: lighten(#323c47, 20%)
     &#colorRed
-      background $red
+      background: #ff3d3d
     &#colorBlue
-      background $blue
+      background: #0072ff
     &#colorGreen
-      background $green
+      background: #18d88b
     &#colorBlack
-      background $black
+      background: #000000
     &#colorWhite
-      background $white
+      background: #ffffff
+    &#colorGrey
+      background: #444444
+    &#colorLgray
+      background: #999999
+
 
 .is-hidden
   display: none
