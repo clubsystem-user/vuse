@@ -350,7 +350,7 @@ export default {
       background: #ffffff
     &#colorGrey
       background: #444444
-    &#colorLgray
+    &#colorLgrey
       background: #999999
 
 
