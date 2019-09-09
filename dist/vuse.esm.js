@@ -9637,7 +9637,7 @@ var Vuse = function Vuse (options) {
   this.themes = options.themes;
   this.components = {};
   this.assets = {
-    css: options.assets.css || 'dist/css/app.css'
+    css: (options.assets ? options.assets.css : undefined) || 'dist/vuse.css'
   };
   this.installPlugins();
 };
