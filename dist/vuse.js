@@ -9421,7 +9421,6 @@
         });
       },
       addLink: function addLink () {
-        console.log(this.section, this.name);
         this.section.set(((this.name) + ".href"), this.url);
       },
       changeColor: function changeColor () {
