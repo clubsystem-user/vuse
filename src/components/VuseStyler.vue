@@ -7,10 +7,10 @@
     @click.stop=""
   )
     ul.styler-list
-      li(v-if="type === 'button' || type === 'section'")
+      li(v-if="type === 'button' || type === 'section' || type === 'linkbox'")
         button.styler-button(@click="updateOption('colorer')")
           VuseIcon(name='palettes')
-      li(v-if="type === 'button'")
+      li(v-if="type === 'button' || type === 'linkbox'")
         button.styler-button(@click="updateOption('link')")
           VuseIcon(name='link')
       li(v-if="type === 'header' || type === 'section'")
@@ -149,6 +149,9 @@ export default {
     if (this.type === 'text') {
       this.el.contentEditable = 'true';
     }
+    if (this.type === 'linkbox') {
+      this.url = this.section.get(`${this.name}.href`);
+    }
   },
   mounted () {
     if (!this.$builder.isEditing) return;
@@ -242,7 +245,7 @@ export default {
       }
       document.removeEventListener('click', this.hideStyler, true);
 
-      if (this.type === 'section' || this.type === 'grid') {
+      if (this.type === 'section' || this.type === 'grid' || this.type == 'linkbox') {
         return;
       }
       if (this.type === 'button') {

@@ -11,6 +11,7 @@ const data = new Map([
   [types.Image, `${ASSETS_DIR}/img/baianat.png`],
   [types.ClassList, () => []],
   [types.Button, () => ({ text: 'Click Me!', classes: [], href: 'http://example.com' })],
+  [types.Linkbox, () => ({ classes: [], href: 'http://example.com' })],
   [types.Quote, 'When you were made a leader, you weren\'t given a crown; you were given the responsibility to bring out the best in others.'],
   [types.Grid, () => ({mobile: '', tablet: '', desktop: '', widescreen: ''})],
   [Number, 100],

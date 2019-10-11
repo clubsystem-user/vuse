@@ -2469,6 +2469,7 @@
   var ClassList = function ClassList () {};
   var Button = function Button () {};
   var Grid = function Grid () {};
+  var Linkbox = function Linkbox () {};
 
   var types = /*#__PURE__*/Object.freeze({
     Avatar: Avatar,
@@ -2480,7 +2481,8 @@
     Link: Link,
     ClassList: ClassList,
     Button: Button,
-    Grid: Grid
+    Grid: Grid,
+    Linkbox: Linkbox
   });
 
   /**
@@ -3701,6 +3703,8 @@
     if (value === Title) { return 'text'; }
     if (value === Button) { return 'button'; }
     if (value === ClassList) { return 'section'; }
+    if (value === Link) { return 'link'; }
+    if (value === Linkbox) { return 'linkbox'; }
     if (value === String) { return 'text'; }
     if (value === Number) { return 'text'; }
 
@@ -3773,6 +3777,7 @@
     [Image, (ASSETS_DIR + "/img/baianat.png")],
     [ClassList, function () { return []; }],
     [Button, function () { return ({ text: 'Click Me!', classes: [], href: 'http://example.com' }); }],
+    [Linkbox, function () { return ({ classes: [], href: 'http://example.com' }); }],
     [Quote, 'When you were made a leader, you weren\'t given a crown; you were given the responsibility to bring out the best in others.'],
     [Grid, function () { return ({mobile: '', tablet: '', desktop: '', widescreen: ''}); }],
     [Number, 100],
@@ -9389,6 +9394,9 @@
       if (this.type === 'text') {
         this.el.contentEditable = 'true';
       }
+      if (this.type === 'linkbox') {
+        this.url = this.section.get(((this.name) + ".href"));
+      }
     },
     mounted: function mounted () {
       if (!this.$builder.isEditing) { return; }
@@ -9413,6 +9421,7 @@
         });
       },
       addLink: function addLink () {
+        console.log(this.section, this.name);
         this.section.set(((this.name) + ".href"), this.url);
       },
       changeColor: function changeColor () {
@@ -9488,7 +9497,7 @@
         }
         document.removeEventListener('click', this.hideStyler, true);
 
-        if (this.type === 'section' || this.type === 'grid') {
+        if (this.type === 'section' || this.type === 'grid' || this.type == 'linkbox') {
           return;
         }
         if (this.type === 'button') {
@@ -9504,7 +9513,7 @@
   /* script */
   var __vue_script__$2 = script$2;
   /* template */
-  var __vue_render__$2 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.$builder.isEditing)?_c('div',{ref:"styler",staticClass:"styler",class:{ 'is-visible': _vm.isVisible },attrs:{"id":"styler"},on:{"click":function($event){$event.stopPropagation();}}},[_c('ul',{staticClass:"styler-list"},[(_vm.type === 'button' || _vm.type === 'section')?_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.updateOption('colorer')}}},[_c('VuseIcon',{attrs:{"name":"palettes"}})],1)]):_vm._e(),(_vm.type === 'button')?_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.updateOption('link')}}},[_c('VuseIcon',{attrs:{"name":"link"}})],1)]):_vm._e(),(_vm.type === 'header' || _vm.type === 'section')?_c('li',[_c('button',{staticClass:"styler-button",on:{"click":_vm.removeSection}},[_c('VuseIcon',{attrs:{"name":"trash"}})],1)]):_vm._e(),(_vm.type === 'text')?[_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.updateOption('textColor')}}},[_c('VuseIcon',{attrs:{"name":"palettes"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.updateOption('align')}}},[_c('VuseIcon',{attrs:{"name":"align"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.updateOption('textStyle')}}},[_c('VuseIcon',{attrs:{"name":"textStyle"}})],1)])]:_vm._e(),(_vm.type === 'grid')?[_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.selectDevice('mobile')}}},[_c('VuseIcon',{attrs:{"name":"mobile"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.selectDevice('desktop')}}},[_c('VuseIcon',{attrs:{"name":"laptop"}})],1)])]:_vm._e()],2),_c('ul',{staticClass:"styler-list"},[(_vm.currentOption === 'colorer')?_c('li',[_c('ul',{staticClass:"colorer"},_vm._l((_vm.colors),function(color){return _c('li',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.colorerColor),expression:"colorerColor"}],attrs:{"type":"radio","id":("color" + (color.charAt(0).toUpperCase() + color.slice(1))),"name":"colorer"},domProps:{"value":color,"checked":_vm._q(_vm.colorerColor,color)},on:{"change":function($event){_vm.colorerColor=color;}}})])}),0)]):_vm._e(),(_vm.currentOption === 'textColor')?_c('li',[_c('ul',{staticClass:"colorer"},_vm._l((_vm.colors),function(color,index){return _c('li',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.textColor),expression:"textColor"}],attrs:{"type":"radio","id":("color" + (color.charAt(0).toUpperCase() + color.slice(1))),"name":"colorer"},domProps:{"value":_vm.textColors[index],"checked":_vm._q(_vm.textColor,_vm.textColors[index])},on:{"change":function($event){_vm.textColor=_vm.textColors[index];}}})])}),0)]):_vm._e(),(_vm.currentOption === 'link')?_c('li',[_c('div',{staticClass:"input-group is-rounded has-itemAfter is-primary"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.url),expression:"url"}],staticClass:"input",attrs:{"type":"text","placeholder":"type your link"},domProps:{"value":(_vm.url)},on:{"input":function($event){if($event.target.composing){ return; }_vm.url=$event.target.value;}}}),_c('button',{staticClass:"button",on:{"click":_vm.addLink}},[_c('VuseIcon',{attrs:{"name":"link"}})],1)])]):_vm._e(),(_vm.currentOption === 'align')?_c('li',[_c('ul',{staticClass:"align"},[_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('justifyleft')}}},[_c('VuseIcon',{attrs:{"name":"left"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('justifycenter')}}},[_c('VuseIcon',{attrs:{"name":"center"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('justifyright')}}},[_c('VuseIcon',{attrs:{"name":"right"}})],1)])])]):_vm._e(),(_vm.currentOption === 'textStyle')?_c('li',[_c('ul',{staticClass:"align"},[_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('bold')}}},[_c('VuseIcon',{attrs:{"name":"bold"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('italic')}}},[_c('VuseIcon',{attrs:{"name":"italic"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('underline')}}},[_c('VuseIcon',{attrs:{"name":"underline"}})],1)])])]):_vm._e(),(_vm.currentOption === 'columnWidth')?_c('li',[_c('ul',{staticClass:"align"},[_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){_vm.gridValue--;}}},[_c('VuseIcon',{attrs:{"name":"arrowLeft"}})],1)]),_c('li',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.gridValue),expression:"gridValue"}],staticClass:"styler-input",attrs:{"type":"number","min":"0","max":"12"},domProps:{"value":(_vm.gridValue)},on:{"input":function($event){if($event.target.composing){ return; }_vm.gridValue=$event.target.value;}}})]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){_vm.gridValue++;}}},[_c('VuseIcon',{attrs:{"name":"arrowRight"}})],1)])])]):_vm._e()])]):_vm._e()};
+  var __vue_render__$2 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (_vm.$builder.isEditing)?_c('div',{ref:"styler",staticClass:"styler",class:{ 'is-visible': _vm.isVisible },attrs:{"id":"styler"},on:{"click":function($event){$event.stopPropagation();}}},[_c('ul',{staticClass:"styler-list"},[(_vm.type === 'button' || _vm.type === 'section' || _vm.type === 'linkbox')?_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.updateOption('colorer')}}},[_c('VuseIcon',{attrs:{"name":"palettes"}})],1)]):_vm._e(),(_vm.type === 'button' || _vm.type === 'linkbox')?_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.updateOption('link')}}},[_c('VuseIcon',{attrs:{"name":"link"}})],1)]):_vm._e(),(_vm.type === 'header' || _vm.type === 'section')?_c('li',[_c('button',{staticClass:"styler-button",on:{"click":_vm.removeSection}},[_c('VuseIcon',{attrs:{"name":"trash"}})],1)]):_vm._e(),(_vm.type === 'text')?[_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.updateOption('textColor')}}},[_c('VuseIcon',{attrs:{"name":"palettes"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.updateOption('align')}}},[_c('VuseIcon',{attrs:{"name":"align"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.updateOption('textStyle')}}},[_c('VuseIcon',{attrs:{"name":"textStyle"}})],1)])]:_vm._e(),(_vm.type === 'grid')?[_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.selectDevice('mobile')}}},[_c('VuseIcon',{attrs:{"name":"mobile"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.selectDevice('desktop')}}},[_c('VuseIcon',{attrs:{"name":"laptop"}})],1)])]:_vm._e()],2),_c('ul',{staticClass:"styler-list"},[(_vm.currentOption === 'colorer')?_c('li',[_c('ul',{staticClass:"colorer"},_vm._l((_vm.colors),function(color){return _c('li',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.colorerColor),expression:"colorerColor"}],attrs:{"type":"radio","id":("color" + (color.charAt(0).toUpperCase() + color.slice(1))),"name":"colorer"},domProps:{"value":color,"checked":_vm._q(_vm.colorerColor,color)},on:{"change":function($event){_vm.colorerColor=color;}}})])}),0)]):_vm._e(),(_vm.currentOption === 'textColor')?_c('li',[_c('ul',{staticClass:"colorer"},_vm._l((_vm.colors),function(color,index){return _c('li',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.textColor),expression:"textColor"}],attrs:{"type":"radio","id":("color" + (color.charAt(0).toUpperCase() + color.slice(1))),"name":"colorer"},domProps:{"value":_vm.textColors[index],"checked":_vm._q(_vm.textColor,_vm.textColors[index])},on:{"change":function($event){_vm.textColor=_vm.textColors[index];}}})])}),0)]):_vm._e(),(_vm.currentOption === 'link')?_c('li',[_c('div',{staticClass:"input-group is-rounded has-itemAfter is-primary"},[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.url),expression:"url"}],staticClass:"input",attrs:{"type":"text","placeholder":"type your link"},domProps:{"value":(_vm.url)},on:{"input":function($event){if($event.target.composing){ return; }_vm.url=$event.target.value;}}}),_c('button',{staticClass:"button",on:{"click":_vm.addLink}},[_c('VuseIcon',{attrs:{"name":"link"}})],1)])]):_vm._e(),(_vm.currentOption === 'align')?_c('li',[_c('ul',{staticClass:"align"},[_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('justifyleft')}}},[_c('VuseIcon',{attrs:{"name":"left"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('justifycenter')}}},[_c('VuseIcon',{attrs:{"name":"center"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('justifyright')}}},[_c('VuseIcon',{attrs:{"name":"right"}})],1)])])]):_vm._e(),(_vm.currentOption === 'textStyle')?_c('li',[_c('ul',{staticClass:"align"},[_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('bold')}}},[_c('VuseIcon',{attrs:{"name":"bold"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('italic')}}},[_c('VuseIcon',{attrs:{"name":"italic"}})],1)]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){return _vm.execute('underline')}}},[_c('VuseIcon',{attrs:{"name":"underline"}})],1)])])]):_vm._e(),(_vm.currentOption === 'columnWidth')?_c('li',[_c('ul',{staticClass:"align"},[_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){_vm.gridValue--;}}},[_c('VuseIcon',{attrs:{"name":"arrowLeft"}})],1)]),_c('li',[_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.gridValue),expression:"gridValue"}],staticClass:"styler-input",attrs:{"type":"number","min":"0","max":"12"},domProps:{"value":(_vm.gridValue)},on:{"input":function($event){if($event.target.composing){ return; }_vm.gridValue=$event.target.value;}}})]),_c('li',[_c('button',{staticClass:"styler-button",on:{"click":function($event){_vm.gridValue++;}}},[_c('VuseIcon',{attrs:{"name":"arrowRight"}})],1)])])]):_vm._e()])]):_vm._e()};
   var __vue_staticRenderFns__$2 = [];
 
     /* style */

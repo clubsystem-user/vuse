@@ -28,6 +28,8 @@ export function getTypeFromSchema (target, schema) {
   if (value === types.Title) return 'text';
   if (value === types.Button) return 'button';
   if (value === types.ClassList) return 'section';
+  if (value === types.Link) return 'link';
+  if (value === types.Linkbox) return 'linkbox';
   if (value === String) return 'text';
   if (value === Number) return 'text';
 

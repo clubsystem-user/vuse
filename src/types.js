@@ -17,3 +17,5 @@ export class ClassList {};
 export class Button {};
 
 export class Grid { };
+
+export class Linkbox {};
