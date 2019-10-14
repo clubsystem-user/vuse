@@ -77,6 +77,8 @@
             VuseIcon(name='italic')
           li: button.styler-button(@click="execute('underline')")
             VuseIcon(name='underline')
+          li: button.styler-button(@click="execute('insertUnorderedList')")
+            VuseIcon(name='list')
 
       li(v-if="currentOption === 'columnWidth'")
         ul.align
