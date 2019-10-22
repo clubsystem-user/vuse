@@ -23,6 +23,8 @@
             VuseIcon(name='align')
         li: button.styler-button(@click="updateOption('textStyle')")
             VuseIcon(name='textStyle')
+        li: button.styler-button(@click="updateOption('link_text')")
+            VuseIcon(name='link')
       template(v-if="type === 'grid'")
         li: button.styler-button(@click="selectDevice('mobile')")
             VuseIcon(name='mobile')
@@ -58,6 +60,11 @@
         .input-group.is-rounded.has-itemAfter.is-primary
           input.input(type="text" placeholder="type your link" v-model="url")
           button.button(@click="addLink")
+            VuseIcon(name='link')
+      li(v-if="currentOption === 'link_text'")
+        .input-group.is-rounded.has-itemAfter.is-primary
+          input.input(type="text" placeholder="type your link" v-model="url")
+          button.button(@click="addLinkToText")
             VuseIcon(name='link')
 
       li(v-if="currentOption === 'align'")
@@ -177,6 +184,10 @@ export default {
     },
     addLink () {
       this.section.set(`${this.name}.href`, this.url);
+    },
+    addLinkToText () {
+      console.log("HERE!");
+      this.execute('createLink', this.url);
     },
     changeColor () {
       this.removeClass(`is-${this.oldColorerColor}`);
